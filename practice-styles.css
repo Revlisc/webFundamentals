@@ -1,0 +1,68 @@
+body {
+    background: green;
+    font-family: Tahoma, Arial, sans-serif;
+    
+}
+
+h1 {
+    color: rgba(235, 221, 33, 0.842);
+    font: 32px Garamond, Helvetica, serif;
+    text-align: center;
+}
+#test {
+    background-color: aliceblue;   
+    background-image: url(ext-icon.png) ;
+    background-position: bottom;
+    background-repeat: repeat-x;
+    background-size: 100px;
+    height: 100px;
+}
+
+section {
+    border: 5px solid;
+    border-color: white;
+    border-style: double;
+    
+}
+
+h2 {
+    text-align: center;
+    color: yellow;
+    font: Times, serif
+}
+
+table {
+    width: 50%;
+    text-align: center;
+    padding-left: 0;
+    margin-left: 5px;
+    margin-right: auto;
+    background-color: aqua;
+}
+
+thead {
+    text-align: center;
+    color: yellow;
+}
+
+tbody {
+    color: yellow;
+    margin: auto;
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+label {
+    display: block;
+}
+#end {
+    text-align: center;
+}
+
+#submit-btn {
+    display: block;
+    box-align: right;
+}

@@ -1,0 +1,36 @@
+body {
+    background-color: rgb(159, 198, 199)
+}
+
+h1 {
+    border-bottom: 10px groove red;
+    text-align: center;
+}
+
+h2 {
+    border-width: auto;
+    border-bottom: 5px groove red;
+}
+
+nav {
+    text-align: center;
+    border-bottom: 2px double red;
+    padding: 0;
+    
+}
+
+#aboutMeList {
+    list-style: circle inside;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 5px;
+
+}
+
+.profilepic {
+    display: inline-block;
+    padding-left: 50px;
+    padding-top: 20px;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Color Guessing Game</title>
+        <style>
+            h1 {
+                text-align: center;
+                border-bottom: 5px double red;
+            }
+            #start {
+                margin-left: 46.5%;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Color Guessing Game</h1>
+        
+        <button type="button" onClick="runGame()" id="start">Start Game</button>
+        <script>
+            const COLORS_ARRAY = ["blue", "cyan", "gold", "magenta", "gray", "green", "orange", "red", "white", "yellow"];
+
+            //runGame function, initializes our variables to their empty eq.
+            function runGame() {
+                let guess = "";
+                let correct = false;
+                let numTries = 0;
+
+                const targetIndex = Math.floor(Math.random() * COLORS_ARRAY.length);
+
+                //uses .toLowerCase() to avoid case-sensitivity. logs the correct answer for testing
+                const target = COLORS_ARRAY[targetIndex].toLowerCase();
+                console.log("Correct answer: " + target);
+
+                do {
+                    //uses .join() and sort() for better ux
+                    let guess = prompt('I am thinking of one of these colors:\n\n' + COLORS_ARRAY.sort().join(", ") + '. \nWhat color am I thinking of?\n');
+                    ++numTries;
+                    //exit for if hitting cancel or no answer
+                    if (guess === null) {
+                        alert("Not in a gaming mood?");
+                        return;
+                    }
+                    //puts guess in lower case to avoid case-sensitivity
+                    guess = guess.toLowerCase();
+                    //updated to pass numTries for use in showing number of tries
+                    correct = checkGuess(guess, target, numTries);
+                    //updates the background to guess color if the guess was correct
+                    if(correct) {
+                        document.body.style.background = guess;
+                    }
+                } while (!correct);
+            
+                //uses if else to give more appropriate response if only one guess was taken
+                if (numTries === 1) {
+                    alert("That's right! You won. It only took you one guess."); 
+                    
+                } else {
+                    alert("That's right! You won. It took you " + numTries + " guesses");
+                    
+                }
+                
+            }
+
+            //uses if else logic to give appropriate messages to the user, updated to pass numTries
+            function checkGuess(guess, target, numTries) {
+                let correct = false;
+
+                if (!COLORS_ARRAY.includes(guess)) {
+                    alert("That's not one of the colors! The dev wasn't very creative. \nYou are at " + numTries + " guesses.");
+                } else if (target < guess) {
+                    alert("Too low! The right answer is alphabetically higher.\nYou are at " + numTries + " guesses.");
+                } else if (target > guess) {
+                    alert("Too high! The right aswer is alphabetically lower.\nYou are at " + numTries + " guesses.");
+                } else {
+                    
+                    correct = true;
+                }
+                return correct;
+            }
+        </script>
+    </body>
+</html>

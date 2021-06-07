@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Matching Game</title>
+    
+    <style>
+        img {
+            position: absolute;
+            
+        }
+
+        div {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-top: 1px groove black;
+        }
+
+        #rightSide {
+            left: 500px;
+            border-left: 1px solid;
+            border-top: white;
+        }
+
+        button {
+            background: red;
+            border-radius: 10px;
+            color: white;
+            font-size: 20px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: green;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Matching Game</h1>
+    <p>Instructions: Click on the face on the left side that does not appear on the right.</p>
+    <!--ADDED: button to allow for game reset-->
+    <button type="button" onclick="window.location.reload()">Restart</button>
+    <div id="leftSide"></div>
+    <div id="rightSide"></div>
+
+    <script>
+        //allows user to choose difficulty for improved ux
+        let mode = prompt("Would you like to play on easy, medium, or hard?");
+        let numberOfFaces = 0;
+        
+        //if they hit cancel, they are instructed to close the tab
+        if (mode === null) {
+            alert("Please close the tab");
+        }
+        
+
+        //switch tree to allow for difficulty selector
+        //FIXED: added break statements
+        mode = mode.toLowerCase();
+        //console.log("number of faces" + numberOfFaces);
+        switch (mode) {
+            case 'easy':
+                numberOfFaces = 2;
+                //console.log("2");
+                break;
+            case 'medium':
+                numberOfFaces = 5;
+                break;
+            case 'hard':
+                //console.log(numberOfFaces);
+                numberOfFaces = 8;
+                break;
+        }
+        
+        //generates the page, initializes numTries to -1 to allow for better incrementing
+        window.addEventListener('load', generateFaces);
+        const theLeftSide = document.getElementById("leftSide");
+        const theRightSide = document.getElementById("rightSide");
+        let numTries = -1;
+
+        //generates faces in randomized locations, adds each face as child to the left
+        //clones the left side minus the last child node and sets equal to the right side
+        //adds eventhandlers to allow for game progession or failure
+        //REFERENCE: uses DOM traversal to add/remove
+        function generateFaces() {
+            numTries++;
+            //console.log("number of faces " + numberOfFaces);
+            for (i = 0; i < numberOfFaces; i++) {
+                let face = document.createElement('img');
+                face.src = 'images/smile.png';
+                let randomTop = Math.floor(Math.random() * 400) + 1;
+                let randomLeft = Math.floor(Math.random() * 400) + 1;
+                face.style.top = randomTop + 'px';
+                face.style.left = randomLeft + 'px';
+                theLeftSide.appendChild(face);
+
+            }
+            const leftSideImages = theLeftSide.cloneNode(true);
+            leftSideImages.removeChild(leftSideImages.lastChild);
+            theRightSide.appendChild(leftSideImages);
+
+            theLeftSide.lastChild.addEventListener('click', nextLevel);
+            document.body.addEventListener('click', gameOver);
+            //console.log("mode " + mode);
+        }
+
+        //if win condition is met, it will generate faces whose number depends on difficulty selected
+        //removes all children in order to remake the play space
+        //ADDED: number of faces generated based on difficulty
+        function nextLevel(event) {
+            event.stopPropagation();
+            //console.log("the mode in nextlevel is " + mode);
+            if (mode === 'easy') {
+                numberOfFaces += 2;
+            } else if (mode === 'medium') {
+                numberOfFaces += 5;
+            } else {
+                numberOfFaces += 8;
+            }
+            
+            while (theLeftSide.firstChild) {
+                theLeftSide.removeChild(theLeftSide.firstChild);
+            }
+            while (theRightSide.firstChild) {
+                theRightSide.removeChild(theRightSide.firstChild);
+            }
+            generateFaces();
+
+        }
+
+        //increments the number of tries, and ends page functionality when the game ends
+        //tells user how many clicks in total were performed on the page
+        //ADDED: number of tries taken
+        function gameOver() {
+            numTries++;
+            alert("Game Over! You clicked " + numTries + " times.");
+            document.body.removeEventListener('click', gameOver);
+            theLeftSide.lastChild.removeEventListener('click', nextLevel);
+            
+        }
+        
+    </script>
+</body>
+</html>
