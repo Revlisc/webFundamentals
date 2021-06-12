@@ -7,28 +7,26 @@ const result_p = document.querySelector(".result > p");
 const rock_div = document.getElementById("r");
 const paper_div = document.getElementById("p");
 const scissor_div = document.getElementById("s");
-rock_div.addEventListener('click', game('r')); 
-   
-    
-    paper_div.addEventListener('click', game('p'));
-    
-    
-    scissor_div.addEventListener('click', game('s'));
-    
-//main();
 
-/*
+    
+main();
+
+
 function main() {
-    rock_div.addEventListener('click', game('r')); 
+    rock_div.addEventListener('click', function() {
+        game('r');
+    });
    
     
-    paper_div.addEventListener('click', game('p'));
+    paper_div.addEventListener('click', function() {
+        game('p');
+    });
     
-    
-    scissor_div.addEventListener('click', game('s'));
-    
+    scissor_div.addEventListener('click', function() {
+        game('s');
+    });
 }
-*/
+
 function game(userChoice) {
     let compChoice = getCompChoice();
     console.log("comp choice is: " + compChoice + " userchoice is " + userChoice);
