@@ -28,6 +28,10 @@ h1 {
     font-family: sans-serif;
     position: relative;
 }
+#instructions {
+    color: white;
+    text-align: center;
+}
 
 .badge {
     background: #E2584D;
